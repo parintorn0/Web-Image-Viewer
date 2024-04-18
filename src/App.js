@@ -19,6 +19,11 @@ function DragDropImageUploader() {
   const images = useRef([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
+  const getClearBtn=useRef((<></>))
+  const ClearBtn=((
+    <span className='clear' onClick={() => { images.current = []; setCurrentImg(""); getClearBtn.current=(<></>)}}>
+      <div id='clear'>Clear all</div>
+    </span>))
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (images.current.length === 0) {
@@ -94,6 +99,10 @@ function DragDropImageUploader() {
     if (images.current.length === 0) { setCurrentImg(() => null); return; }
     currentIndex.current = 0;
     setCurrentImg(images.current[0].url)
+    if(images.current.length!==0){
+      getClearBtn.current=ClearBtn;
+    }
+    else{getClearBtn.current=(<></>);}
   }
 
   function onDragOver(event) {
@@ -119,18 +128,22 @@ function DragDropImageUploader() {
       );
     }
     setCurrentImg(images.current[0].url)
-    console.log(images)
+    if(images.current.length!==0){
+      getClearBtn.current=ClearBtn;
+    }else{getClearBtn.current=(<></>);}
   }
+  
   return (<>
     <div className='side'>
       <div id="nav" style={{ 'margin-left': navMargin, }}>
         <div className='container'>
-          <span className='clear' onClick={() => { images.current = []; setCurrentImg("") }}>
-            <div id='clear'>Clear all</div>
-          </span>
+          {getClearBtn.current}
           {images.current.map((image, index) => (
             <div className='image' key={index}>
-              <span className='delete' onClick={() => deleteImage(index)}>&times;</span>
+              <span className='delete' onClick={() => {deleteImage(index); if(images.current.length!==0){
+      getClearBtn.current=ClearBtn;
+    }
+    else{getClearBtn.current=(<></>);}}}>&times;</span>
               <img src={image.url} alt={image.name} id={index} className='navImg' onClick={() => { setCurrentImg(image.url); currentIndex.current = index; }} />
             </div>
           ))}
