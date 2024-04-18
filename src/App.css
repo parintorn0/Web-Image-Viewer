@@ -68,7 +68,8 @@ body {
   flex-direction: column;
   overflow-y: hidden;
   overflow-x: hidden;
-  border: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
   background: linear-gradient(90deg, rgba(40,40,40,0) 0%, rgba(40,40,40,0.25) 35%, rgba(40,40,40,0.25) 65%, rgba(40,40,40,0) 100%);
   transition: overflow .5s, margin .4s;
   animation: 7s delay-overflow;
