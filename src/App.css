@@ -144,6 +144,27 @@ body {
   padding-bottom: 25px;
 }
 
+.container .clear {
+  width: 100px;
+  border-radius: 75px;
+  background-color: #197399;
+  display: block;
+  margin: 10px 0 0 10px;
+}
+
+.container #clear {
+  position: relative;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 5px;
+  text-align: center;
+}
+
+.container #clear:hover {
+  font-weight: 500;
+}
+
 .container .image {
   margin-top: 25px;
   margin-left: 25px;

@@ -125,6 +125,9 @@ function DragDropImageUploader() {
     <div className='side'>
       <div id="nav" style={{ 'margin-left': navMargin, }}>
         <div className='container'>
+          <span className='clear' onClick={() => { images.current = []; setCurrentImg("") }}>
+            <div id='clear'>Clear all</div>
+          </span>
           {images.current.map((image, index) => (
             <div className='image' key={index}>
               <span className='delete' onClick={() => deleteImage(index)}>&times;</span>
