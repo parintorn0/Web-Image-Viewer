@@ -13,7 +13,12 @@ function DragDropImageUploader() {
   const shownav = useRef(true);
   const currentIndex = useRef(0);
   const [navMargin, setNavMargin] = useState('0');
+  const [guideMargin, setGuideMargin] = useState('0');
   const [dragdropMargin, setDragdropMargin] = useState('1vw');
+  const [imgHeight,setImgHeight] = useState('auto');
+  const [imgWidth,setImgWidth]= useState('auto')
+  const imgMaxHeight = useRef('100%');
+  const imgMaxWidth = useRef('100%');
   const down = useRef(true);
   const [currentImg, setCurrentImg] = useState("");
   const images = useRef([]);
@@ -47,26 +52,50 @@ function DragDropImageUploader() {
           return;
         }
       }
+      else if(e.key==='a'){
+        setImgHeight(()=>'');
+        setImgWidth(()=>'');
+        imgMaxHeight.current='100%';
+        imgMaxWidth.current='100%';
+      }
+      else if(e.key==='s'){
+        setImgHeight(()=>'100%');
+        setImgWidth(()=>'auto');
+        imgMaxHeight.current='';
+        imgMaxWidth.current='';
+      }
+      else if(e.key==='d'){
+        setImgHeight(()=>'auto');
+        setImgWidth(()=>'100%');
+        imgMaxHeight.current='';
+        imgMaxWidth.current='';
+      }
+      else if(e.key==='f'){
+        setImgHeight(()=>'auto');
+        setImgWidth(()=>'auto');
+        imgMaxHeight.current='';
+        imgMaxWidth.current='';
+      }
       else { return; }
       setCurrentImg(() => images.current[currentIndex.current].url)
     };
     const handleKeyDown = (e) => {
-      if (e.key == 'Escape') {
+      if (e.key === 'Escape') {
         e.preventDefault();
         console.log(e.key)
         if (shownav.current) {
-          setNavMargin('-300px')
-          setDragdropMargin('-1vw')
+          setDragdropMargin('-200px');
+          setNavMargin('-300px');
+          setGuideMargin('-500px')
           shownav.current = false;
         }
         else {
-          setNavMargin('0')
-          setDragdropMargin('1vw')
-          shownav.current = true;
+          
         }
         return;
       }
       else { return; }
+      
     }
     document.addEventListener("keydown", handleKeyPress);
     document.addEventListener("keydown", handleKeyDown);
@@ -133,7 +162,34 @@ function DragDropImageUploader() {
     }else{getClearBtn.current=(<></>);}
   }
   
-  return (<>
+  return (
+  <>
+    <div id='guide' style={{marginTop:guideMargin}}>
+      <div style={{textAlign:'center',fontWeight:'bold',fontSize:'20px',marginBottom:'10px'}}>Keys Function</div>
+      <div style={{display:'block', margin:'0 20px'}}>
+        <div style={{display:'grid',gridTemplateColumns:'20px 20px 100px'}}>
+          <span style={{gridColumnStart:'1',gridColumnEnd:'2'}}>a</span>
+          <span style={{gridColumnStart:'2',gridColumnEnd:'3'}}>:</span>
+          <span style={{gridColumnStart:'3',gridColumnEnd:'4'}}>See fit screen</span>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'20px 20px 100px'}}>
+          <span style={{gridColumnStart:'1',gridColumnEnd:'2'}}>s</span>
+          <span style={{gridColumnStart:'2',gridColumnEnd:'3'}}>:</span>
+          <span style={{gridColumnStart:'3',gridColumnEnd:'4'}}>See fit height</span>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'20px 20px 100px'}}>
+          <span style={{gridColumnStart:'1',gridColumnEnd:'2'}}>d</span>
+          <span style={{gridColumnStart:'2',gridColumnEnd:'3'}}>:</span>
+          <span style={{gridColumnStart:'3',gridColumnEnd:'4'}}>See fit width</span>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'20px 20px 100px'}}>
+          <span style={{gridColumnStart:'1',gridColumnEnd:'2'}}>f</span>
+          <span style={{gridColumnStart:'2',gridColumnEnd:'3'}}>:</span>
+          <span style={{gridColumnStart:'3',gridColumnEnd:'4'}}>See original</span>
+        </div>
+      </div>
+      
+    </div>
     <div className='side'>
       <div id="nav" style={{ 'margin-left': navMargin, }}>
         <div className='container'>
@@ -180,16 +236,19 @@ function DragDropImageUploader() {
         shownav.current = false;
         setDragdropMargin('-200px');
         setNavMargin('-300px');
+        setGuideMargin('-500px')
       }
       else {
         shownav.current = true;
         setDragdropMargin('1vw');
         setNavMargin('0');
+        setGuideMargin('0')
       }
     }}>
-      <img id='myImg' src={currentImg} alt=''></img>
+      <img id='myImg' style={{height:imgHeight,width:imgWidth,maxHeight:imgMaxHeight.current,maxWidth:imgMaxWidth.current}} src={currentImg} alt=''></img>
     </div>
   </>
+  
 
   )
 }

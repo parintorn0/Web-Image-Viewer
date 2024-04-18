@@ -10,9 +10,21 @@ body {
   position: relative;
   width: 100vw;
   height: 100vh;
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgb(240, 240, 240);
+}
+
+#guide {
+  top: -60px;
+  position: absolute;
+  z-index: 1;
+  padding: 70px 20px 20px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: rgb(240, 240, 240);
+  border-radius: 50px;
+  transition: margin .4s;
 }
 
 .side {
@@ -29,19 +41,21 @@ body {
   z-index: 0;
   height: 100%;
   width: 100%;
-  display: grid;
-  grid-column-start: 2;
-  grid-column-end: 3;
+  display: inline-flex;
   justify-content: center;
-  align-content: center;
-  position: absolute;
+  align-items: center;
+  overflow-y: scroll;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+
 #myImg {
-  max-height: 100vh;
-  max-width: 100%;
-  padding: 0;
-  margin: 0;
+  position: relative;
+  display:inline-block;
+  vertical-align:top;
 }
 
 #nav {
@@ -209,11 +223,12 @@ body {
   cursor:pointer;
 }
 
-::-webkit-scrollbar {
+.side ::-webkit-scrollbar {
+  display: block;
   width: 10px;
 }
 
-::-webkit-scrollbar-thumb {
+.side ::-webkit-scrollbar-thumb {
   border-radius: 100px;
   background-color: rgba(0, 0, 0, 0.5);
 }
