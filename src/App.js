@@ -17,6 +17,7 @@ function DragDropImageUploader() {
   const [dragdropMargin, setDragdropMargin] = useState('1vw');
   const [imgHeight, setImgHeight] = useState('auto');
   const [imgWidth, setImgWidth] = useState('auto')
+  const imgBorderColor=useRef([])
   const imgMaxHeight = useRef('100%');
   const imgMaxWidth = useRef('100%');
   const down = useRef(true);
@@ -32,6 +33,7 @@ function DragDropImageUploader() {
   ))
   useEffect(() => {
     const handleKeyPress = (e) => {
+      imgBorderColor.current[currentIndex.current]="black";
       if (images.current.length === 0) {
         return
       }
@@ -79,6 +81,7 @@ function DragDropImageUploader() {
       }
       else { return; }
       setCurrentImg(() => images.current[currentIndex.current].url)
+      imgBorderColor.current[currentIndex.current]="green";
     };
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
@@ -121,6 +124,7 @@ function DragDropImageUploader() {
             url: URL.createObjectURL(files[i]),
           }
         );
+        imgBorderColor.current.push('black');
       }
     }
   }
@@ -129,6 +133,7 @@ function DragDropImageUploader() {
     if (images.current.length === 0) { setCurrentImg(() => null); return; }
     currentIndex.current = 0;
     setCurrentImg(images.current[0].url)
+    imgBorderColor.current[0]="green";
     if (images.current.length !== 0) {
       getClearBtn.current = ClearBtn;
     }
@@ -156,8 +161,10 @@ function DragDropImageUploader() {
           url: URL.createObjectURL(files[i]),
         }
       );
+      imgBorderColor.current.push("black");
     }
     setCurrentImg(images.current[0].url)
+    imgBorderColor.current[0]="green";
     if (images.current.length !== 0) {
       getClearBtn.current = ClearBtn;
     } else { getClearBtn.current = (<></>); }
@@ -203,7 +210,7 @@ function DragDropImageUploader() {
                   }
                   else { getClearBtn.current = (<></>); }
                 }}>&times;</span>
-                <img src={image.url} alt={image.name} id={index} className='navImg' onClick={() => { setCurrentImg(image.url); currentIndex.current = index; }} />
+                <img src={image.url} alt={image.name} id={index} className='navImg' onClick={() => { setCurrentImg(image.url); imgBorderColor.current[currentIndex.current]="black"; currentIndex.current = index; imgBorderColor.current[currentIndex.current]="green";}} style={{borderColor:imgBorderColor.current[index]}}/>
               </div>
             ))}
           </div>

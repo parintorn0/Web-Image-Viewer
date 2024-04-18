@@ -53,7 +53,7 @@ body {
 
 
 #myImg {
-  position: relative;
+  position:absolute;
   display:inline-block;
   vertical-align:top;
 }
@@ -80,11 +80,14 @@ body {
 }
 
 #nav .navImg {
+  position: relative;
   width: 200px;
   height: 200px;
   z-index: 3;
   object-fit: contain;
   background-color: rgb(240, 240, 240);
+  transition: all .5s;
+  margin-top: -40px;
 }
 
 .card-container {
@@ -155,16 +158,12 @@ body {
   opacity: 0.6;
 }
 
-.container{
-  padding-bottom: 25px;
-}
-
 .clear {
   width: 100px;
   border-radius: 75px;
   background-color: #197399;
   display: block;
-  margin: 25px 0 0 25px;
+  margin: 25px 0 15px 25px;
 }
 
 #clear {
@@ -181,17 +180,22 @@ body {
 }
 
 .container .image {
-  margin-top: 25px;
-  margin-left: 25px;
-  max-height: 300px;
-  position: relative;
+  margin: 0 0 25px 25px;
+  width: 204px;
+  height: 208px;
+  display: inline-block;
+}
+
+.container {
+  width: 250px;
+  padding-bottom: 15px;
 }
 
 .container .image img {
   width: 100%;
   height: 100%;
-  border-radius: 5px;
-  border: 1px solid black;
+  border-radius: 15px;
+  border: 4px solid;
   object-fit: contain;
 }
 
@@ -211,12 +215,12 @@ body {
 
 .delete {
   max-height: 20px;
-  top: -10px;
-  left: 0;
+  margin: 0 0 0 4px;
   z-index: 999;
-  color:#0086fe;
-  font-size: 30px;
-  position: absolute;
+  color:#000;
+  font-size: 40px;
+  position: relative;
+  text-shadow: 0px 0px 2px #fff;
 }
 
 .delete:hover {
